@@ -27,11 +27,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     // Create the static user object for the profile page
-    const user = ProfileUser(
-      name: 'Habib Ur Rahman',
-      email: 'user@example.com', // The same static email used in LoginPage
-      profileImageUrl: 'https://media.licdn.com/dms/image/v2/D5635AQFMgfvHsFhqKg/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1738553775385?e=1764590400&v=beta&t=73gyWqCTCzpmNVE1MPhhzvqxvoqQoPlZ8pWHPRG2cWk',
-    );
 
     // Keep user in state via a field closure (we'll use this in build)
   }
@@ -82,18 +77,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     // recreate static user here (same as before)
-    const user = ProfileUser(
-      name: 'Habib Ur Rahman',
-      email: 'user@example.com',
-      profileImageUrl: 'https://media.licdn.com/dms/image/v2/D5635AQFMgfvHsFhqKg/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1738553775385?e=1764590400&v=beta&t=73gyWqCTCzpmNVE1MPhhzvqxvoqQoPlZ8pWHPRG2cWk',
-    );
 
     final pages = <Widget>[
       HomeContent(userProperties: _submittedProperties, onPlaceBid: _handlePlaceBid),
       const SearchPage(),
       AddPropertyPage(onSubmit: _handlePropertySubmit),
       const ChatListPage(),
-      const ProfilePage(user: user),
+      const ProfilePage(),
     ];
 
     return Scaffold(

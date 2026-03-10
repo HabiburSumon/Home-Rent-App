@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
+
 import 'package:agentic_ai/app/core/errors/failures.dart';
 
 abstract class UseCase<Type, Params> {

@@ -1,40 +1,59 @@
-import 'package:equatable/equatable.dart';
+// Since signup returns the same structure as login, we can reuse LoginResponse
+// But let's check the structure first
+import 'login_response_model.dart';
 
-class UserModel extends Equatable {
-  final String? id;
-  final String? email;
-  final String? phone;
-  final String? name;
-  final String? role;
+class SignupResponse {
+  final bool success;
+  final String message;
+  final SignupData data;
 
-  const UserModel({
-    this.id,
-    this.email,
-    this.phone,
-    this.name,
-    this.role,
+  SignupResponse({
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: json['id'],
-      email: json['email'],
-      phone: json['phone'],
-      name: json['name'],
-      role: json['role'],
+  factory SignupResponse.fromJson(Map<String, dynamic> json) {
+    return SignupResponse(
+      success: json['success'] as bool? ?? false,
+      message: json['message'] as String? ?? 'An unknown error occurred',
+      data: SignupData.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'email': email,
-      'phone': phone,
-      'name': name,
-      'role': role,
+      'success': success,
+      'message': message,
+      'data': data.toJson(),
     };
   }
-
-  @override
-  List<Object?> get props => [id, email, phone, name, role];
 }
+
+class SignupData {
+  final User user;
+  final String token;
+
+  SignupData({
+    required this.user,
+    required this.token,
+  });
+
+  factory SignupData.fromJson(Map<String, dynamic> json) {
+    return SignupData(
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      token: json['token'] as String? ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user': user.toJson(),
+      'token': token,
+    };
+  }
+}
+
+// Note: Structure is different:
+// Login: {"data": {"token": "...", "user": {...}}}
+// Signup: {"data": {"user": {...}, "token": "..."}}
